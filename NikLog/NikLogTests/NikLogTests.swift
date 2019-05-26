@@ -19,16 +19,29 @@ class NikLogTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testPrintInDebugMode() {
+        // Given
+        let isDubug = true
+        let log = NTLog()
+        
+        // When
+        log.setup(isDebug: isDubug)
+
+        // Then
+        XCTAssert(log.NTPrint(value: "Prints"))
     }
 
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    func testNoPrintInDebugMode() {
+        // Given
+        let isDubug = false
+        let log = NTLog()
+        log.setup(isDebug: isDubug)
+        
+        // When
+        log.setup(isDebug: isDubug)
+        
+        // Then
+        XCTAssertFalse(log.NTPrint(value: "Prints"))
     }
 
 }
