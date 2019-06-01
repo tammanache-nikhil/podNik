@@ -1,0 +1,6 @@
+coverage_service: cobertura_xml
+xcodeproj: NikLog.xcodeproj
+scheme: NikLog
+output_directory: reports
+ignore:
+  - NikLogTests/*
