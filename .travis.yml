@@ -1,15 +1,17 @@
 language: objective-c
-
 osx_image: xcode10.2
 env:
   matrix:
-    - TEST_SDK=iphonesimulator12.2 OS=12.2 NAME='iPhone XR'
-    - TEST_SDK=iphonesimulator12.2 OS=12.2 NAME='iPhone 7'
-
+  - TEST_SDK=iphonesimulator12.2 OS=12.2 NAME='iPhone XR'
+  - TEST_SDK=iphonesimulator12.2 OS=12.2 NAME='iPhone 7'
+  global:
+  - secure: xDxdqbR9I2/E1pZ8Git1CkKTkpcfVmWNLwARKLqg+wEHThBcr2kSj020E7+hC6h3MP1EkhIIaUd60X23hQnJkMBT2mFq6xlwvdo2XuuP2/0Jyig6uejDy2rA+8VpS3LuPJi8wwe9DZvUAOWCyAq4OAV1QomLM1sPHIOdK4ayFQjsYb7M0by2x5PJBKji9XheyUZtHVTgnnIlNytRe1Tq0YP53mRT4iMujkLNqLtIqlH0EaYoT2X5sO2Btvlcq30e3828Hay68jICgVYknprKYkGIkQXDJUXaUcMTp0PPu3LirUxFuKorYgxjGrDOvZx4PmDqPJsZCPX2sG+Vt3BRo+P8JMR4hlkDD00M3x0dYRy7TIM3BqGYnIVT9xdu65qoCCcPOM+q47f45bwWFa0RgxwPOD71vSZc4qE2jn7lGvX1nA5JXrm53awtxGaTjavnwcRHzo8OxRsGixMtwRUxCgXs+5iCd6ixPgPPJwG/rjk27wAnorcQAtgsU2NdCLJTUzOdwcCzZ+eF04ex3x2XFyM0JGLfuS/Soh73LXtOMshmR/TcoYqIGize7/3HOcOn90BUV/I7DBbc0zZP1Yaiuv3WSRZ5i6YxR7hk38DdzqSTi+u0PXCAWq6GAfRd0/oG4dCeSJdFrIAaTx5TMoWzwN1fK4IaToFHQbg+E5rUr6U=
+  - secure: pQHPJROPu1SNZQau5g29RdUUi6BKdEL9TauUH3phCMpKZU7IcK4dfXy+wMOsQ6dTVf9ZBhGf88XTN415uD3WCWqQiRDfkW6pM/Pqim/5gdzWorN1YoeOud6TkbMWKCI92J20/pewCbznYmABGStYCJYPqFtmmCuYFBZIMEmWJjJkGR7F31BgbrTBy2ffHXR49eJaQFGK/VXPmMqOwCw97s25j2e1yvkQcaRtowP7SGw1nbQdsb2T2mLklInHGtcC60zUEjUqyBLVgzYfEEPNPgm4J257Y4zqQcg+PNAqJXfhMI/orTs1vF1NTLGRC1PKlXHBHnUQO1AUq3Z6DLSFQLt4SOipd+5ToGZ8OKrwxyVx6uib9vUXl7JGYClZVPeV9KKV662AZfVUrdL1aU/fkgbHJPkBUihBm0NyG9ztjagek64pmEVUcWvachIH0WemCf5sLrSbUkMpXVmkC5pUYjnzyuliMyTfCdqqmEByA4cHoWjwBdHd0wnXJ1YxJd7Z+xtq4AO8Tp8ZA1fpFGdDJKjweq0oEa6BSvRes0x+y0ARsiSX7s8ay3okcGDjza+FnaHPEyT7xc+bNMaynzhrWj/Vh35gXanmIiVG+urGUY9yI3omWo9xmLSm8JasysAYF5+3AVU9gDKCY9wwdEDerTTIFURkPDuPwJMRwvoJl/I=
 script:
-  - set -o pipefail && xcodebuild test -enableCodeCoverage YES -project NikLog.xcodeproj -scheme NikLog -sdk $TEST_SDK -destination "platform=iOS Simulator,OS=$OS,name=$NAME" ONLY_ACTIVE_ARCH=YES
-
+- set -o pipefail && xcodebuild test -enableCodeCoverage YES -project NikLog.xcodeproj
+  -scheme NikLog -sdk $TEST_SDK -destination "platform=iOS Simulator,OS=$OS,name=$NAME"
+  ONLY_ACTIVE_ARCH=YES
 after_success:
-  - slather
-  - bash <(curl -s https://codecov.io/bash) -f reports/cobertura.xml -X coveragepy -X gcov -X xcode
-
+- slather
+- bash <(curl -s https://codecov.io/bash) -f reports/cobertura.xml -X coveragepy -X
+  gcov -X xcode
